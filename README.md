@@ -1,4 +1,4 @@
-<img src="https://cobalt-design.talkdeskapp.com/assets/images/logo-white.svg" alt="Talkdesk Logo" width="100" height="100" style="background-color:#000921" />
+<img src="cobalt.png" height="100" width="100"/>
 
 # Style Guidelines
 
