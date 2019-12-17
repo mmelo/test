@@ -33,7 +33,7 @@
   4. ***[Misc.](#misc)***
       - [Over-qualification](#over-qualification)
       - [Colors](#colors)
-  5. ***[Component Styles folder structure](#component-styles-folder-structure)***
+  5. ***[Component folder structure](#folder-structure)***
       - [Folder Structure](#folder-structure)
 
 ## Terminology
@@ -172,7 +172,7 @@ Finally, properties are what give the selected elements of a rule declaration th
   min-height: 42px;
   padding: 0 24px;
   border-radius: $border-radius;
-  ...
+  // ...
 }
 ```
 
@@ -186,6 +186,7 @@ Finally, properties are what give the selected elements of a rule declaration th
 - Write detailed comments for code that isn't self-documenting:
   - Uses of z-index
   - Compatibility or browser-specific hacks
+
 </details>
 
 <details>
@@ -214,11 +215,13 @@ We encourage the use of BEM notation for these reasons:
 - It helps in building scalable stylesheets
 
 ***BEM***, or “_Block-Element-Modifier_”, is a _naming convention_ for classes in _HTML_ and _CSS_. It was originally developed by _Yandex_ with large codebases and scalability in mind, and can serve as a solid set of guidelines for implementing _OOCSS_.
+
 <br/>
+
 - CSS Trick's [BEM 101](https://css-tricks.com/bem-101/)
 - Harry Roberts' [introduction to BEM](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)
 
-
+<br/>
 ***Example***
 
 ```html
@@ -234,6 +237,14 @@ We encourage the use of BEM notation for these reasons:
 ```
 
 ```css
+.block { }
+
+.block__element { }
+
+.block--modiffier { }
+
+/** In practice: */
+
 .co-card { }
 
 .co-card--featured { }
@@ -333,6 +344,18 @@ Use `0` instead of `none` to specify that a style has no border:
     }
     ```
 
+4. Notes
+
+    Although nesting selectors (like elements or modiffiers) resorting to the `&` is valid and useful (as mentioned before, now is discouraged as is makes all selectors more easily searchable), but do bear in mind htat the order/specificity (or order AND specificity) in which they are defined, just like in `CSS` matters.
+
+    ***Good***
+
+   ```scss
+      a { }
+
+     .co-button a { }
+   ```
+
 ### Variables
 
 Use dash-cased variable names (e.g. `$my-variable`) over camelCased or snake_cased variable names. It is acceptable to prefix variable names that are intended to be used only within the same file with an underscore (e.g. `$_my-variable`).
@@ -412,7 +435,7 @@ If you must use an ID selector in the first place (and you should really try not
   background-color: var(--primary-600);
 }
 ```
-
+<br/>
 
 ### Over-qualification
 
@@ -442,7 +465,7 @@ a {
 ```
 </details>
 
-### Component Styles folder structure
+### Folder structure
 
 
 <!-- @TODO: make clear colors, imports and forlder structure will be fundamentally different here!!! (review new REPO - ask Nuno Maia or Daniel Sil) -->
@@ -453,12 +476,15 @@ a {
 
 **WARNING:** _Do note that the folder structure is going to change moving on to Cobalt Design's V2 - and this is only a guideline for the existing folder structure and folder/file creation rules._
 
+<br/>
+
 Everything you need is inside the _source_ folder`
 
 - `sourc/assets` contains all the images and icons that Cobalt needs
 - `sourc/sass` contains the SCSS files that will be the source to generate the CSS bundle.
 - `source/web` contains the files that will be the source to generate the static web site and the components examples and documentation.
 
+<br/>
 
 Rules to follow when organizing Components (`scss folder`).
 
