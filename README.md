@@ -465,7 +465,6 @@ Rules to follow when organizing Components (`scss folder`).
 - When a component has dependencies of another components, it needs to be on its own folder, under its parent.
 - The main style file should be the component's name. This file is imported by `main.scss`. This should import all dependencies files. _(check navbar example)_.
 - If the component is compatible with global modifiers, its scss needs to be placed on a separate file named `global-modifiers.scss`.
-- All dependencies file should be prepended with the component's name followed by `-dependencyName`.
 
 <br/>
 
