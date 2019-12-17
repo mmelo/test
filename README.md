@@ -17,23 +17,23 @@
       - [Rule Declaration](#rule-declaration)
       - [Selectors](#selectors)
       - [Properties](#properties)
-  1. ***[CSS](#css)***
+  2. ***[CSS](#css)***
       - [Formatting](#formatting)
       - [Comments](#comments)
       - [Naming & BEM](#naming-and-bem)
       - [ID Selectors](#id-selectors)
       - [Border & Outlines](#border-and-outlines)
-  1. ***[Sass](#sass)***
+  3. ***[Sass](#sass)***
       - [Syntax](#syntax)
       - [Ordering](#ordering-of-property-declarations)
       - [Variables](#variables)
       - [Mixins](#mixins)
       - [Extend directive](#extend-directive)
       - [Nested selectors](#nested-selectors)
-  1. ***[Misc.](#misc)***
-      - [Colors](#colors)
+  4. ***[Misc.](#misc)***
       - [Over-qualification](#over-qualification)
-  1. ***[Component Styles folder structure](#component-styles-folder-structure)***
+      - [Colors](#colors)
+  5. ***[Component Styles folder structure](#component-styles-folder-structure)***
       - [Folder Structure](#folder-structure)
 
 ## Terminology
@@ -79,12 +79,9 @@ Finally, properties are what give the selected elements of a rule declaration th
   display: block;
 }
 ```
-
 </details>
 
 ## CSS
-
-### Formatting
 
 <details>
 
@@ -132,6 +129,7 @@ Finally, properties are what give the selected elements of a rule declaration th
   // ...
 }
 ```
+
 
 **Property Ordering Declaration**
 
@@ -188,10 +186,7 @@ Finally, properties are what give the selected elements of a rule declaration th
 - Write detailed comments for code that isn't self-documenting:
   - Uses of z-index
   - Compatibility or browser-specific hacks
-
 </details>
-
-### Naming and BEM
 
 <details>
 
@@ -219,9 +214,10 @@ We encourage the use of BEM notation for these reasons:
 - It helps in building scalable stylesheets
 
 ***BEM***, or “_Block-Element-Modifier_”, is a _naming convention_ for classes in _HTML_ and _CSS_. It was originally developed by _Yandex_ with large codebases and scalability in mind, and can serve as a solid set of guidelines for implementing _OOCSS_.
-
+<br/>
 - CSS Trick's [BEM 101](https://css-tricks.com/bem-101/)
 - Harry Roberts' [introduction to BEM](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)
+
 
 ***Example***
 
@@ -251,10 +247,7 @@ We encourage the use of BEM notation for these reasons:
 - `.co-card__title` is an “element” and represents a descendant of `.co-card` that helps compose the block as a whole.
 - `.co-card--featured` is a “modifier” and represents a different state or variation on the `.co-card` block.
 - However in select use cases `.co-card.co--small` (even though it's an overqualification) is allowed - this is referrend within the theam as a global modiffier with a specific context;
-
 </details>
-
-### ID selectors
 
 <details>
 
@@ -263,10 +256,7 @@ We encourage the use of BEM notation for these reasons:
 While it is possible to select elements by ID in CSS, it should generally be considered an anti-pattern. ID selectors introduce an unnecessarily high level of [specificity](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity) to your rule declarations, and they are not reusable.
 
 For more on this subject, read [CSS Wizardry's article](http://csswizardry.com/2014/07/hacks-for-dealing-with-specificity/) on dealing with specificity.
-
 </details>
-
-### Borders and Oulines
 
 <details>
 
@@ -290,12 +280,9 @@ Use `0` instead of `none` to specify that a style has no border:
   border: 0;
 }
 ```
-
 </details>
 
 ## Sass
-
-### Syntax
 
 <details>
 
@@ -303,6 +290,7 @@ Use `0` instead of `none` to specify that a style has no border:
 
 - Use the `.scss` syntax, never the original `.sass` syntax
 - Order your regular CSS and `@include` declarations logically (see below)
+
 
 ### Ordering of property declarations
 
@@ -349,13 +337,16 @@ Use `0` instead of `none` to specify that a style has no border:
 
 Use dash-cased variable names (e.g. `$my-variable`) over camelCased or snake_cased variable names. It is acceptable to prefix variable names that are intended to be used only within the same file with an underscore (e.g. `$_my-variable`).
 
+
 ### Mixins
 
 Mixins should be used to DRY up your code, add clarity, or abstract complexity--in much the same way as well-named functions. Mixins that accept no arguments can be useful for this, but note that if you are not compressing your payload (e.g. gzip), this may contribute to unnecessary code duplication in the resulting styles.
 
+
 ### Extend directive
 
 `@extend` should be minimized because it has unintuitive behavior, especially when used with nested selectors. Instead resort to placeholders (using the notation provided below) if the `@extend` behavior is required to help DRY your code and have a single source of truth.
+
 
 ### Nested selectors
 
@@ -378,14 +369,13 @@ When selectors become this long, you're likely writing CSS that is:
 Again: ***never nest ID selectors!**
 
 If you must use an ID selector in the first place (and you should really try not to), they should never be nested. If you find yourself doing this, you need to revisit your markup, or figure out why such strong specificity is needed. If you are writing well formed HTML and CSS, you should **never** need to do this.
-
 </details>
 
 ## Misc.
 
 <details>
 
-<summary>Misc.</summary>
+<summary>Overqualification & Colors</summary>
 
 ### Colors
 
@@ -450,12 +440,9 @@ a {
   text-decoration: underline;
 }
 ```
-
 </details>
 
 ### Component Styles folder structure
-
-#### Folder Structure
 
 
 <!-- @TODO: make clear colors, imports and forlder structure will be fundamentally different here!!! (review new REPO - ask Nuno Maia or Daniel Sil) -->
@@ -472,14 +459,15 @@ Everything you need is inside the _source_ folder`
 - `sourc/sass` contains the SCSS files that will be the source to generate the CSS bundle.
 - `source/web` contains the files that will be the source to generate the static web site and the components examples and documentation.
 
+
 Rules to follow when organizing Components (`scss folder`).
 
 - When a component has dependencies of another components, it needs to be on its own folder, under its parent.
 - The main style file should be the component's name. This file is imported by `main.scss`. This should import all dependencies files. _(check navbar example)_.
 - If the component is compatible with global modifiers, its scss needs to be placed on a separate file named `global-modifiers.scss`.
-- All dependencies file should be prepended with the component's name followed by `-dependencyName`.
+- All dependencies file should be prepended with the component's name followed by `-dependencyName`.  
 
-<br>
+<br/>
 
 ***See the structure example below:**
 
@@ -495,5 +483,6 @@ CHANGELOG.md
         |-- _component-global-modifiers.scss(*)
 ...
 ```
+<br/>
 \* - (this needs to be the last to be imported.)
 </details>
