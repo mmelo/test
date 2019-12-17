@@ -6,7 +6,7 @@
 
 ## Useful URLs
 
-- [Cobalt V2 Spec](https://talkdesk.atlassian.net/wiki/spaces/COB/pages/1161036646/)
+- [Cobalt V2 Spec](https://talkdesk.atlassian.net/wiki/spaces/COB/pages/1154680579/Design%2BDocumentation)
 - [Cobalt V1 Source](https://github.com/Talkdesk/cobalt_design/)
 - [Cobalt v1 Documentation](https://cobalt-design.talkdeskapp.com/)
 
@@ -465,7 +465,7 @@ Rules to follow when organizing Components (`scss folder`).
 - When a component has dependencies of another components, it needs to be on its own folder, under its parent.
 - The main style file should be the component's name. This file is imported by `main.scss`. This should import all dependencies files. _(check navbar example)_.
 - If the component is compatible with global modifiers, its scss needs to be placed on a separate file named `global-modifiers.scss`.
-- All dependencies file should be prepended with the component's name followed by `-dependencyName`.  
+- All dependencies file should be prepended with the component's name followed by `-dependencyName`.
 
 <br/>
 
@@ -486,3 +486,133 @@ CHANGELOG.md
 <br/>
 \* - (this needs to be the last to be imported.)
 </details>
+
+# Creating or migrating a component step by step
+
+## Creating the main folder and scss file
+
+The first step is to create the main folders of the new component. The folder should follow the structure described above and the main scss file should be named after the component. The new cobalt design already has a few comands that create the right component folders. (see link or somethign)
+
+The Buttom will be used as an example throughout these explanations. See [Button Documentation](https://talkdesk.atlassian.net/wiki/spaces/COB/pages/1173192818/New+page+Buttons)
+
+The first steo is to create a folder with `Button` and and a `button.scss` file inside. This file will contain all the default styles of the component, including styles related to the sub-components of button and imports of other files that are related to button, like for example, modifiers and mixins.
+
+example:
+```scss
+@import 'button-mixins';
+
+.co-button {
+  //Default Styles
+}
+
+@import 'button-global-modifiers';
+@import 'button-modifiers';
+```
+
+If the component has sub-components and hover states, they must follow the following example:
+
+```scss
+.co-component {
+  //Default Styles
+}
+
+.co-component-subcomponent {
+  //Default Styles
+
+  &:hover {}
+  &:active {}
+}
+```
+
+## Creating the modifiers file
+
+As described in the documentation, the button component has multiple variations of style. There variations are created by combining the component with modifier classes and props. Some of these classes are global and others are specific to the component.
+
+All modifiers that are specific to the component should be in the same `button-modifiers.scss` file while the global modifiers should be in the `button-global-modifiers.scss` file.
+
+Example of a modifiers file:
+```scss
+.co-button {
+  .co-button--icon {
+    // Css properties
+  }
+
+  .co-button--loader {
+    // Css properties
+  }
+}
+```
+
+Example of a global modifiers file:
+```scss
+.co-button {
+  .co--small {
+    // Css properties
+  }
+
+  .co--large {
+    // Css properties
+  }
+}
+```
+
+Components that are more complex may need multiple files with different groups of modifiers. These should be added to a new flolder with the name of the type of modifiers they are. For example for the button, since there are a lot of global modifiers, they should be grouped inside a folder with the name `global-modifiers`.
+
+Bellow there is an example of the structure:
+
+```
+button
+  |-- _button.scss
+  |-- _button-modifiers.scss
+  |-- /global-modifiers
+      |-- _button-sizes.scss
+      |-- _button-variations.scss
+      |-- _button-loading.scss
+      // etc...
+```
+
+## Mixings and  Functions.
+Some components may need to repeat parts of the code and logic. For these cases, mixins and functions should be used to make things easier.
+
+Add file for that with the component base folder or in a sub-folder if there are multiple files
+
+The button component makes use of a size mixin for the loader size. This mixin is placed in a `button-mixin.scss` file, in the button css base folder.
+
+
+## White Labeling
+
+All components must be compatible with white labeling. To make this possible, some key css properties must use css variables. Each component has different needs so the documentation will provide the correct list of properties that will need to be configurable.
+For the example of the button, the things that may change are the colors and the shape.
+
+How to declare a variable:
+
+```scss
+--color-varible: #{palette-color('gray', 300)};
+--padding-variable: 0 24px;
+
+.co-button {
+  background-color: var(--color-variable);
+  padding: var(--padding-variable);
+
+  .co--primary {
+    --color-varible: #{palette-color('gray', 300)};
+  }
+
+  .co--large {
+    --padding-variable: 0 32px;
+  }
+}
+```
+
+Like illustrated in the example above variables should be declared at the beginning of the block or file and follow this format: `--name-of-variable: value`. To be applied to a selector, it the var should be called like this: `var(--name-of-variable)`. It's also possible to pass a default value for the variable: `var(--name-of-variable, defaultValue)`
+
+## Cobalt Helper Functions and Mixins
+This section will talk breafely of the multiple helper functions we have in order to make it more clear when to use it (and inforce people to use them)
+
+TODO:
+Como aplicar uma cor ?
+List of special functions we use like:
+spacing(),
+pallete(),
+font-weight(),
+mediaQueries()
